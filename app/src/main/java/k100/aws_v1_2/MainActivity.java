@@ -36,7 +36,7 @@ public class MainActivity extends AppCompatActivity {
     public String Field_1 = "F1";
     public String Field_2 = "F2";
 
-    // PLACE TOMCAT SERVER OR TUNNLED ADDRESS HERE!!
+    // PLACE TOMCAT SERVER OR TUNNLED ADDRESS HERE!!!
     // DONT FORGET "http://" OR YOU MAY HAVE ISSUES
     public String Server_URL = "http://pc.rm2710.pagekite.me/midp/data"; // or your hostname
 
