@@ -35,6 +35,7 @@ public class MainActivity extends AppCompatActivity {
     public String Request_Type;
     public String Field_1 = "F1";
     public String Field_2 = "F2";
+    public String[] response_seperated;
 
     // PLACE TOMCAT SERVER OR TUNNLED ADDRESS HERE!!!!
     // DONT FORGET "http://" OR YOU MAY HAVE ISSUES
@@ -51,6 +52,7 @@ public class MainActivity extends AppCompatActivity {
         outputView = (TextView)findViewById(R.id.textView_results);
         get_button = (Button) findViewById(R.id.button_get);
         post_button = (Button) findViewById(R.id.button_post);
+
 
     }
 
@@ -70,15 +72,31 @@ public class MainActivity extends AppCompatActivity {
         new HTTP_request().execute();
     }
 
+    public void comp() {
+        String local_year = new SimpleDateFormat("yyyy").format(new Date());
+        String local_month = new SimpleDateFormat("MM").format(new Date());
+        String local_day = new SimpleDateFormat("dd").format(new Date());
+        String local_hour = new SimpleDateFormat("HH").format(new Date());
+        String local_minute = new SimpleDateFormat("mm").format(new Date());
+        String local_second = new SimpleDateFormat("ss").format(new Date());
+
+        outputView.setText(response_seperated[0]);
+        //outputView.setText(response_seperated[1]);
+        //outputView.setText(response_seperated[2]);
+        //outputView.setText(response_seperated[3]);
+        //outputView.setText(response_seperated[4]);
+
+    }
+
+
+    //                  CLASSES
 
     // HTTP Request Class (Handles both GET & POST all in one wowieee)
     public class HTTP_request extends AsyncTask<String, Void, Void> {
         public Void doInBackground(String... params) {
             try {
                 // DEFINE POST or GET components:
-                //  - Http POST format: Server_URL ? first_fieldname = "string value 1" + second_filedname = "string value 2"
-                //  - Http GET format: Server_URL
-                URL url = new URL(Server_URL + "?time=" + Field_1 + "&event=" + Field_2);
+                URL url = new URL(Server_URL);
 
                 // Open HTTP Connection
                 HttpURLConnection connection = (HttpURLConnection)url.openConnection();
@@ -96,32 +114,37 @@ public class MainActivity extends AppCompatActivity {
                 }
                 buff.close();
 
-                final String finalResponse = response;
+                response_seperated = response.split(":");
+
+
+                final String finalResponse = response_seperated[0];
+
                 // Display output response on separate thread (UI Thread)
                 MainActivity.this.runOnUiThread(new Runnable() {
-                                                    public void run() { outputView.setText(finalResponse); }
+                                                    public void run() {
+                                                        //outputView.setText(finalResponse);
+                                                    }
                                                 }
                 );
 
             }
             catch (IOException e) {
             }
+
+
+            // Send data to computations method
+            //comp();
+
+
             return null;
+
         }
+
+
+
     } // End of HTTP Request Class
 
 
-    // --------------------------------------- GESTURE METHODS ---------------------------------------
-
-
-
-         /*
-                Field_1 = timeStamp;
-                Field_2 = "EARTHQUAKE";
-                Request_Type = "POST";
-                new HTTP_request().execute();
-                Event.setText(Field_2);
-         */
 
 } // END OF MAIN
 
