@@ -50,8 +50,8 @@
                             android:layout_alignParentStart="true"
                             android:background="@drawable/circ_shape"
                             android:indeterminate="false"
-                            android:max="100"
-                            android:progress="10"
+                            android:max="40"
+                            android:progress="0"
                             android:progressDrawable="@drawable/circ_prog" />
 
                         <TextView
@@ -101,7 +101,7 @@
                             android:background="@drawable/circ_shape"
                             android:indeterminate="false"
                             android:max="100"
-                            android:progress="75"
+                            android:progress="0"
                             android:progressDrawable="@drawable/circ_prog" />
 
                         <TextView
@@ -154,7 +154,7 @@
                             android:background="@drawable/circ_shape"
                             android:indeterminate="false"
                             android:max="100"
-                            android:progress="60"
+                            android:progress="0"
                             android:progressDrawable="@drawable/circ_prog" />
 
                         <TextView
@@ -203,7 +203,7 @@
                             android:background="@drawable/circ_shape"
                             android:indeterminate="false"
                             android:max="100"
-                            android:progress="85"
+                            android:progress="0"
                             android:progressDrawable="@drawable/circ_prog" />
 
                         <TextView
@@ -215,13 +215,14 @@
                             android:gravity="center"
                             android:text="D"
                             android:textColor="@color/colorPrimary"
-                            android:textSize="18sp"
+                            android:textSize="12sp"
                             android:textStyle="bold" />
                     </RelativeLayout>
                 </LinearLayout>
             </LinearLayout>
 
             <TextView
+                android:id="@+id/indicator"
                 android:layout_width="fill_parent"
                 android:layout_height="fill_parent"
                 android:layout_marginTop="10dp"

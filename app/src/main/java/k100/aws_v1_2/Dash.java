@@ -47,6 +47,7 @@ public class Dash extends AppCompatActivity {
     TextView pres_text;
     TextView humid_text;
     TextView alt_text;
+    TextView indicator;
 
     public int i;   // Random indexer
     public int exit=0; // Exit Code Variable
@@ -70,6 +71,9 @@ public class Dash extends AppCompatActivity {
         pres_text = (TextView) findViewById(R.id.pres_text);
         humid_text = (TextView) findViewById(R.id.humid_text);
         alt_text = (TextView) findViewById(R.id.alt_text);
+        indicator = (TextView) findViewById(R.id.indicator);
+
+        //temp_bar.setProgress((int)100.0);
 
         // Start Updating
         Thread thread = new Thread() {
@@ -144,17 +148,23 @@ public class Dash extends AppCompatActivity {
                 Dash.this.runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        // Update Progress Bars
-                        temp_bar.setProgress(Integer.parseInt(response_seperated[7]));
-                        pres_bar.setProgress(Integer.parseInt(response_seperated[9]));
-                        humid_bar.setProgress(Integer.parseInt(response_seperated[8]));
-                        alt_bar.setProgress(Integer.parseInt(response_seperated[10]));
+
+                        // Formatting
+                        DecimalFormat format = new DecimalFormat();
+                        format.setDecimalSeparatorAlwaysShown(false);
+
+                        temp_bar.setProgress((int) Double.parseDouble(response_seperated[7]));
+                        pres_bar.setProgress((int) Double.parseDouble(response_seperated[9])/10000);
+                        humid_bar.setProgress((int) Double.parseDouble(response_seperated[7]));
+                        alt_bar.setProgress((int) Double.parseDouble(response_seperated[10])*-1 );
+
 
                         // Update Progress Text
                         temp_text.setText("" + response_seperated[7] + "C");
-                        pres_text.setText("" + response_seperated[9] + "mPa");
-                        humid_text.setText("" + response_seperated[8] + "%");
+                        pres_text.setText("" + response_seperated[9] + "x10^-7 Pa");
+                        humid_text.setText("" + response_seperated[7] + "%");
                         alt_text.setText("" + response_seperated[10] + "m");
+
                     }
                 });
 
