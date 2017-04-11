@@ -50,6 +50,8 @@ public class Dash extends AppCompatActivity {
     TextView indicator;
 
     public int i;   // Random indexer
+    public int latest_min = 0;
+    public int latest_sec = 0;
     public int exit=0; // Exit Code Variable
     public String Server_URL = ""; // Hostname
     public String[] response_seperated;
@@ -102,7 +104,7 @@ public class Dash extends AppCompatActivity {
 
             // Delay system (wait)
             try {
-                Thread.sleep(1000);
+                Thread.sleep(1500);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
@@ -153,17 +155,46 @@ public class Dash extends AppCompatActivity {
                         DecimalFormat format = new DecimalFormat();
                         format.setDecimalSeparatorAlwaysShown(false);
 
+                        // Update Progress Bar
+                        temp_bar.setProgress((int) Double.parseDouble(response_seperated[7]));
+                        pres_bar.setProgress((int) Double.parseDouble(response_seperated[9])/10000);
+                        humid_bar.setProgress((int) Double.parseDouble(response_seperated[7]));
+                        alt_bar.setProgress((int) Double.parseDouble(response_seperated[10]));
+
+                        // Update Progress Text
+                        temp_text.setText("" + response_seperated[7] + "C");
+                        pres_text.setText("" + response_seperated[9] + "\n" + "x10^-7 Pa");
+                        humid_text.setText("" + response_seperated[7] + "%");
+                        alt_text.setText("" + response_seperated[10] + "m");
+
+                        // Check if data live
+                        if (Integer.parseInt(response_seperated[5]) == latest_min) {
+                            if (Integer.parseInt(response_seperated[6]) < (latest_sec + 15) ) {
+                                if (Integer.parseInt(response_seperated[6]) == (latest_sec) )
+                                    indicator.setText("Status: Inactive");
+                                else
+                                    indicator.setText("Status: Live");
+                            }
+                        }
+                        latest_min = Integer.parseInt(response_seperated[5]);
+                        latest_sec = Integer.parseInt(response_seperated[6]);
+
+
+
+                        /*
+                        // Update Progress Bar
                         temp_bar.setProgress((int) Double.parseDouble(response_seperated[7]));
                         pres_bar.setProgress((int) Double.parseDouble(response_seperated[9])/10000);
                         humid_bar.setProgress((int) Double.parseDouble(response_seperated[7]));
                         alt_bar.setProgress((int) Double.parseDouble(response_seperated[10])*-1 );
-
 
                         // Update Progress Text
                         temp_text.setText("" + response_seperated[7] + "C");
                         pres_text.setText("" + response_seperated[9] + "x10^-7 Pa");
                         humid_text.setText("" + response_seperated[7] + "%");
                         alt_text.setText("" + response_seperated[10] + "m");
+                        */
+
 
                     }
                 });
