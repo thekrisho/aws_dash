@@ -38,8 +38,7 @@ public class MainActivity extends AppCompatActivity {
     public String[] response_seperated;
 
     // PLACE TOMCAT SERVER OR TUNNLED ADDRESS HERE!!!!
-    // DONT FORGET "http://" OR YOU MAY HAVE ISSUES
-    public String Server_URL = ""; // or your hostname
+    public String Server_URL = "http://pc.rm2710.pagekite.me/midp/data"; // or your hostname
 
 
     @Override
@@ -51,12 +50,18 @@ public class MainActivity extends AppCompatActivity {
         // Define Variables
         outputView = (TextView)findViewById(R.id.textView_results);
         get_button = (Button) findViewById(R.id.button_get);
-        post_button = (Button) findViewById(R.id.button_post);
 
+        // Run methods
+        update();
 
     }
 
     //                  METHODS
+
+    public void update(){
+
+
+    }
 
     // Manual OnClick handles (See buttons in layout xml)
 
@@ -116,13 +121,26 @@ public class MainActivity extends AppCompatActivity {
 
                 response_seperated = response.split(":");
 
+                final String finalResponse = response; // EVERYTHING
 
-                final String finalResponse = response_seperated[0];
+                //final String finalResponse = response_seperated[1]; // Year
+                //final String finalResponse = response_seperated[2]; // Month
+                //final String finalResponse = response_seperated[3]; // Date
+
+                //final String finalResponse = response_seperated[4]; // Hour
+                //final String finalResponse = response_seperated[5]; // Minute
+                //final String finalResponse = response_seperated[6]; // Second
+
+                //final String finalResponse = response_seperated[7]; // Temp
+                //final String finalResponse = response_seperated[8]; // Humidity
+                //final String finalResponse = response_seperated[9]; // Pressure
+                //final String finalResponse = response_seperated[10]; // Altitude
+                //final String finalResponse = response_seperated[11]; // Air Quality
 
                 // Display output response on separate thread (UI Thread)
                 MainActivity.this.runOnUiThread(new Runnable() {
                                                     public void run() {
-                                                        //outputView.setText(finalResponse);
+                                                        outputView.setText(finalResponse);
                                                     }
                                                 }
                 );
