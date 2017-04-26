@@ -75,9 +75,8 @@ public class Dash extends AppCompatActivity {
         alt_text = (TextView) findViewById(R.id.alt_text);
         indicator = (TextView) findViewById(R.id.indicator);
 
-        //temp_bar.setProgress((int)100.0);
 
-        // Start Updating
+        // Start Updating Loop forever
         Thread thread = new Thread() {
             public void run()   {
                 while (true)    {
@@ -89,16 +88,11 @@ public class Dash extends AppCompatActivity {
         thread.start();
 
 
-
-    } // End On Create
+    } // End OnCreate
 
     // METHODS
 
     public void update() {
-
-
-
-
             // Poll Database & Update
             new HTTP_request().execute();
 
@@ -108,14 +102,6 @@ public class Dash extends AppCompatActivity {
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
-
-
-
-
-
-
-
-
     } // End Update
 
 
@@ -180,22 +166,6 @@ public class Dash extends AppCompatActivity {
                         latest_sec = Integer.parseInt(response_seperated[6]);
 
 
-
-                        /*
-                        // Update Progress Bar
-                        temp_bar.setProgress((int) Double.parseDouble(response_seperated[7]));
-                        pres_bar.setProgress((int) Double.parseDouble(response_seperated[9])/10000);
-                        humid_bar.setProgress((int) Double.parseDouble(response_seperated[7]));
-                        alt_bar.setProgress((int) Double.parseDouble(response_seperated[10])*-1 );
-
-                        // Update Progress Text
-                        temp_text.setText("" + response_seperated[7] + "C");
-                        pres_text.setText("" + response_seperated[9] + "x10^-7 Pa");
-                        humid_text.setText("" + response_seperated[7] + "%");
-                        alt_text.setText("" + response_seperated[10] + "m");
-                        */
-
-
                     }
                 });
 
@@ -206,20 +176,3 @@ public class Dash extends AppCompatActivity {
 
 }
 
-/**     APPENDIX
-
-//final String finalResponse = response_seperated[1]; // Year
-//final String finalResponse = response_seperated[2]; // Month
-//final String finalResponse = response_seperated[3]; // Date
-
-//final String finalResponse = response_seperated[4]; // Hour
-//final String finalResponse = response_seperated[5]; // Minute
-//final String finalResponse = response_seperated[6]; // Second
-
-//final String finalResponse = response_seperated[7]; // Temp
-//final String finalResponse = response_seperated[8]; // Humidity
-//final String finalResponse = response_seperated[9]; // Pressure
-//final String finalResponse = response_seperated[10]; // Altitude
-//final String finalResponse = response_seperated[11]; // Air Quality
-
- **/
